@@ -1,7 +1,22 @@
-import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
-import { QuizState, QuizQuestion, QuestionState, Difficulty, SavedQuizProgress } from '@/types/quiz';
+"use client";
 
-const STORAGE_KEY = 'quiz_progress';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
+import {
+  QuizState,
+  QuizQuestion,
+  QuestionState,
+  Difficulty,
+  SavedQuizProgress,
+} from "@/types/quiz";
+
+const STORAGE_KEY = "quiz_progress";
 
 interface QuizContextType {
   state: QuizState;
@@ -19,19 +34,21 @@ interface QuizContextType {
 }
 
 const initialState: QuizState = {
-  email: '',
+  email: "",
   questions: [],
   questionStates: [],
   currentQuestionIndex: 0,
   timeRemaining: 30 * 60, // 30 minutes in seconds
   isCompleted: false,
   startTime: null,
-  difficulty: 'mix',
+  difficulty: "mix",
 };
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
-export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [state, setState] = useState<QuizState>(initialState);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -60,7 +77,9 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const progress: SavedQuizProgress = JSON.parse(saved);
       // Check if saved within last 24 hours and has time remaining
       const isRecent = Date.now() - progress.savedAt < 24 * 60 * 60 * 1000;
-      return isRecent && progress.timeRemaining > 0 && progress.questions.length > 0;
+      return (
+        isRecent && progress.timeRemaining > 0 && progress.questions.length > 0
+      );
     } catch {
       return false;
     }
@@ -71,9 +90,9 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (!saved) return false;
-      
+
       const progress: SavedQuizProgress = JSON.parse(saved);
-      
+
       setState({
         email: progress.email,
         questions: progress.questions,
@@ -84,7 +103,7 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
         startTime: Date.now(),
         difficulty: progress.difficulty,
       });
-      
+
       return true;
     } catch {
       return false;
@@ -97,11 +116,11 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const setEmail = useCallback((email: string) => {
-    setState(prev => ({ ...prev, email }));
+    setState((prev) => ({ ...prev, email }));
   }, []);
 
   const setDifficulty = useCallback((difficulty: Difficulty) => {
-    setState(prev => ({ ...prev, difficulty }));
+    setState((prev) => ({ ...prev, difficulty }));
   }, []);
 
   const setQuestions = useCallback((questions: QuizQuestion[]) => {
@@ -114,38 +133,44 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (questionStates.length > 0) {
       questionStates[0].visited = true;
     }
-    setState(prev => ({ ...prev, questions, questionStates }));
+    setState((prev) => ({ ...prev, questions, questionStates }));
   }, []);
 
-  const navigateToQuestion = useCallback((index: number) => {
-    setState(prev => {
-      const newStates = [...prev.questionStates];
-      if (newStates[index]) {
-        newStates[index].visited = true;
-      }
-      const newState = {
-        ...prev,
-        currentQuestionIndex: index,
-        questionStates: newStates,
-      };
-      saveProgress(newState);
-      return newState;
-    });
-  }, [saveProgress]);
+  const navigateToQuestion = useCallback(
+    (index: number) => {
+      setState((prev) => {
+        const newStates = [...prev.questionStates];
+        if (newStates[index]) {
+          newStates[index].visited = true;
+        }
+        const newState = {
+          ...prev,
+          currentQuestionIndex: index,
+          questionStates: newStates,
+        };
+        saveProgress(newState);
+        return newState;
+      });
+    },
+    [saveProgress]
+  );
 
-  const selectAnswer = useCallback((answer: string) => {
-    setState(prev => {
-      const newStates = [...prev.questionStates];
-      newStates[prev.currentQuestionIndex] = {
-        ...newStates[prev.currentQuestionIndex],
-        answered: true,
-        selectedAnswer: answer,
-      };
-      const newState = { ...prev, questionStates: newStates };
-      saveProgress(newState);
-      return newState;
-    });
-  }, [saveProgress]);
+  const selectAnswer = useCallback(
+    (answer: string) => {
+      setState((prev) => {
+        const newStates = [...prev.questionStates];
+        newStates[prev.currentQuestionIndex] = {
+          ...newStates[prev.currentQuestionIndex],
+          answered: true,
+          selectedAnswer: answer,
+        };
+        const newState = { ...prev, questionStates: newStates };
+        saveProgress(newState);
+        return newState;
+      });
+    },
+    [saveProgress]
+  );
 
   const submitQuiz = useCallback(() => {
     if (timerRef.current) {
@@ -153,7 +178,7 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
       timerRef.current = null;
     }
     clearSavedProgress();
-    setState(prev => ({ ...prev, isCompleted: true }));
+    setState((prev) => ({ ...prev, isCompleted: true }));
   }, [clearSavedProgress]);
 
   const resetQuiz = useCallback(() => {
@@ -166,10 +191,10 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [clearSavedProgress]);
 
   const startTimer = useCallback(() => {
-    setState(prev => ({ ...prev, startTime: Date.now() }));
-    
+    setState((prev) => ({ ...prev, startTime: Date.now() }));
+
     timerRef.current = setInterval(() => {
-      setState(prev => {
+      setState((prev) => {
         if (prev.timeRemaining <= 1) {
           // Auto-submit when timer reaches zero
           if (timerRef.current) {
@@ -223,7 +248,7 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
 export const useQuiz = () => {
   const context = useContext(QuizContext);
   if (context === undefined) {
-    throw new Error('useQuiz must be used within a QuizProvider');
+    throw new Error("useQuiz must be used within a QuizProvider");
   }
   return context;
 };

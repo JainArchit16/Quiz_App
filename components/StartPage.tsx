@@ -623,19 +623,6 @@ const StartPage: React.FC = () => {
               </motion.div>
             </div>
           </motion.div>
-
-          {/* Footer info */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.4 }}
-            className="text-center text-sm text-muted-foreground mt-12"
-          >
-            Questions sourced from the{" "}
-            <span className="font-medium text-foreground">
-              Open Trivia Database
-            </span>
-          </motion.p>
         </div>
       </main>
     </div>
