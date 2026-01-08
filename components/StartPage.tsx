@@ -1,11 +1,14 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz } from "@/context/QuizContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useRouter } from "next/navigation";
+
 import {
   Brain,
   Clock,
@@ -89,7 +92,7 @@ const difficultyOptions: {
 ];
 
 const StartPage: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const {
     setEmail,
     setQuestions,
@@ -174,7 +177,7 @@ const StartPage: React.FC = () => {
       setDifficulty(selectedDifficulty);
       setQuestions(questions);
       startTimer();
-      navigate("/quiz");
+      router.push("/quiz");
     } catch (err) {
       toast({
         title: "Error",
@@ -190,7 +193,7 @@ const StartPage: React.FC = () => {
   const handleResume = () => {
     if (resumeQuiz()) {
       startTimer();
-      navigate("/quiz");
+      router.push("/quiz");
     }
     setShowResumeDialog(false);
   };
