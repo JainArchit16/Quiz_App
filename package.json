@@ -10,9 +10,12 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.23",
     "next": "16.1.1",
+    "postcss": "^8.5.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
@@ -20,6 +23,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
+    "tailwindcss": "^3.4.19",
     "typescript": "^5"
   }
 }
