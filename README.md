@@ -35,7 +35,6 @@ The application follows a component-based architecture with centralized state ma
 - Difficulty selection (Easy, Medium, Hard, Mixed)
 - Dark mode with vibrant color palette
 - Email persistence across sessions
-- Confetti celebration for high scores (70%+)
 - Resume interrupted quiz sessions
 - Detailed question-by-question review
 
