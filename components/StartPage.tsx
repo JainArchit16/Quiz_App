@@ -537,7 +537,7 @@ const StartPage: React.FC = () => {
                             transition={{
                               type: "spring",
                               bounce: 0.2,
-                              duration: 0.6,
+                              duration: 0.4,
                             }}
                           />
                         )}
