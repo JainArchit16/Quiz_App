@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 
 import { motion } from "framer-motion";
 import { useQuiz } from "@/context/QuizContext";
-import { useConfetti } from "@/hooks/useConfetti";
 import ResultCard from "@/components/quiz/ResultCard";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
@@ -29,7 +28,6 @@ const ResultsPage: React.FC = () => {
 
   const { state, resetQuiz } = useQuiz();
   const { questions, questionStates, email, isCompleted } = state;
-  const { fireConfetti, fireStars } = useConfetti();
 
   const results: QuizResult[] = useMemo(() => {
     return questions.map((question, index) => {
@@ -52,22 +50,6 @@ const ResultsPage: React.FC = () => {
 
     return { correct, incorrect, unattempted, attempted, percentage };
   }, [results]);
-
-  // Fire confetti for high scores
-  useEffect(() => {
-    if (stats.percentage >= 70 && questions.length > 0) {
-      // Delay to let the page render first
-      const timer = setTimeout(() => {
-        if (stats.percentage >= 90) {
-          fireConfetti();
-          setTimeout(fireStars, 500);
-        } else {
-          fireConfetti();
-        }
-      }, 800);
-      return () => clearTimeout(timer);
-    }
-  }, [stats.percentage, questions.length, fireConfetti, fireStars]);
 
   useEffect(() => {
     if (!isCompleted && questions.length === 0) {
