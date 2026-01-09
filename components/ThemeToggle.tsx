@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Moon, Sun } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const ThemeToggle: React.FC = () => {
   const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme');
-      if (saved) return saved === 'dark';
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      if (saved) return saved === "dark";
+      return false;
     }
     return false;
   });
@@ -16,19 +16,19 @@ const ThemeToggle: React.FC = () => {
   useEffect(() => {
     const root = document.documentElement;
     if (isDark) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
   }, [isDark]);
 
   // Initialize theme on mount
   useEffect(() => {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark') {
-      document.documentElement.classList.add('dark');
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") {
+      document.documentElement.classList.add("dark");
     }
   }, []);
 
