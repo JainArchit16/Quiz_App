@@ -452,25 +452,27 @@ const StartPage: React.FC = () => {
                     >
                       Email Address
                     </Label>
-                    {localStorage.getItem("quiz_user_email") && email && (
-                      <motion.button
-                        type="button"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        onClick={() => {
-                          localStorage.removeItem("quiz_user_email");
-                          setEmailInput("");
-                          toast({
-                            title: "Signed out",
-                            description: "Your email has been cleared.",
-                          });
-                        }}
-                        className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-destructive transition-colors"
-                      >
-                        <LogOut className="w-3 h-3" />
-                        Sign out
-                      </motion.button>
-                    )}
+                    {typeof window !== "undefined" &&
+                      localStorage.getItem("quiz_user_email") &&
+                      email && (
+                        <motion.button
+                          type="button"
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          onClick={() => {
+                            localStorage.removeItem("quiz_user_email");
+                            setEmailInput("");
+                            toast({
+                              title: "Signed out",
+                              description: "Your email has been cleared.",
+                            });
+                          }}
+                          className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-destructive transition-colors"
+                        >
+                          <LogOut className="w-3 h-3" />
+                          Sign out
+                        </motion.button>
+                      )}
                   </div>
                   <div className="relative">
                     <Input
