@@ -13,7 +13,7 @@ The application follows a component-based architecture with centralized state ma
 - **Context-based State Management**: All quiz state (questions, answers, timer, user progress) is managed in a single QuizContext, ensuring predictable state updates and easy access across components.
 - **localStorage Persistence**: Quiz progress and user email are persisted to localStorage, allowing users to resume interrupted sessions.
 - **Responsive Design**: Mobile-first approach with adaptive layouts for all screen sizes.
-- **Animation-first UX**: Framer Motion powers smooth page transitions, selection effects, and celebratory confetti on high scores.
+- **Animation-first UX**: Framer Motion powers smooth page transitions and selection effects.
 
 ### Components
 
