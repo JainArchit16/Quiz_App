@@ -1,6 +1,6 @@
 # Quiz Challenge Application
 
-A timed quiz application built with React, TypeScript, and Tailwind CSS that fetches trivia questions from the Open Trivia Database API.
+A timed quiz application built with NextJs, TypeScript, and Tailwind CSS that fetches trivia questions from the Open Trivia Database API.
 
 ## Overview
 
@@ -13,7 +13,7 @@ The application follows a component-based architecture with centralized state ma
 - **Context-based State Management**: All quiz state (questions, answers, timer, user progress) is managed in a single QuizContext, ensuring predictable state updates and easy access across components.
 - **localStorage Persistence**: Quiz progress and user email are persisted to localStorage, allowing users to resume interrupted sessions.
 - **Responsive Design**: Mobile-first approach with adaptive layouts for all screen sizes.
-- **Animation-first UX**: Framer Motion powers smooth page transitions, selection effects, and celebratory confetti on high scores.
+- **Animation-first UX**: Framer Motion powers smooth page transitions and selection effects.
 
 ### Components
 
@@ -35,7 +35,6 @@ The application follows a component-based architecture with centralized state ma
 - Difficulty selection (Easy, Medium, Hard, Mixed)
 - Dark mode with vibrant color palette
 - Email persistence across sessions
-- Confetti celebration for high scores (70%+)
 - Resume interrupted quiz sessions
 - Detailed question-by-question review
 
@@ -44,7 +43,7 @@ The application follows a component-based architecture with centralized state ma
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/JainArchit16/Quiz_App.git
    cd quiz-challenge
    ```
 
@@ -64,13 +63,10 @@ The application follows a component-based architecture with centralized state ma
 
 ## Technology Stack
 
-- React 18 with TypeScript
-- Vite for fast development and builds
+- Next.Js with TypeScript
 - Tailwind CSS for styling
 - Framer Motion for animations
-- React Router for navigation
 - Shadcn/ui for accessible UI components
-- Canvas Confetti for celebration effects
 
 ## Assumptions
 
@@ -115,17 +111,3 @@ Tested and compatible with:
 - Firefox (latest)
 - Safari (latest)
 - Edge (latest)
-
-## Project Structure
-
-```
-src/
-├── components/
-│   ├── quiz/           # Quiz-specific components
-│   └── ui/             # Reusable UI components
-├── context/            # React Context providers
-├── hooks/              # Custom React hooks
-├── pages/              # Page components
-├── types/              # TypeScript type definitions
-└── lib/                # Utility functions
-```
